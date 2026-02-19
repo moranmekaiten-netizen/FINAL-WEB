@@ -1,0 +1,61 @@
+
+
+
+body {
+    direction: ltr;
+    background-image: url('../Images/project_web.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+}
+
+header p {
+    font-size: 0.9rem;
+}
+
+main.container,
+.soft-panel {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.bg-nav-soft {
+    background-color: rgba(196, 224, 199, 0.85);
+}
+
+.card-hover {
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.badge-available {
+    font-size: 0.8rem;
+}
+
+.fav-chip {
+    border: 1px dashed rgba(25,135,84,.5);
+    border-radius: 999px;
+    padding: .25rem .6rem;
+}
+
+#statusArea {
+    min-height: 24px;
+}
+
+footer {
+    margin-top: 30px;
+}
+
+button:focus,
+input:focus,
+select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(25,135,84,0.25) !important;
+}
