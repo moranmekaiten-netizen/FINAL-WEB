@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>Find & Borrow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<header class="bg-transparent text-white text-center p-3 ">
+   <div class="d-inline-block p-3" style="border: 3px solid rgba(196, 224, 199, 0); border-radius: 10px;"></div>
+    <h1 class="mb-0">Find & Borrow</h1>
+    <p class="mb-0">Borrow instead of buying</p>
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(196, 224, 199, 0.8);">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">F&B</a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="Includes/search.html">Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="Includes/addItemForm.html">Add Item</a></li>
+                <li class="nav-item"><a class="nav-link" href="Includes/my-items.html">My Items</a></li>
+                <li class="nav-item"><a class="nav-link not-implemented" href="#" aria-label="Profile (not implemented)">Profile</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container my-4">
+
+    
+    <div id="statusArea" class="small mt-2"></div>
+<section class="mb-4">
+        <h2 class="mb-3">What do you need?</h2>
+        <input type="text" class="form-control"
+               placeholder="Search for an item...">
+    </section>
+
+    <section class="mb-4 text-center">
+        <button class="btn btn-success me-2">Find Item</button>
+        <button class="btn btn-outline-success">Add New Item</button>
+    </section>
+
+    <section>
+        <h2 class="mb-3">Available Near You</h2>
+
+        <div class="row g-3">
+
+            <article class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100" style="background-color: rgba(196, 224, 199, 0.8);" >
+                    <div class="card-body">
+                        <h3 class="card-title h5">Power Drill</h3>
+                        <p class="card-text">Available for short-term borrowing</p>
+                        <a href="#" class="btn btn-success btn-sm">View</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100" style="background-color: rgba(196, 224, 199, 0.8);">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Mixer</h3>
+                        <p class="card-text">Perfect for baking projects</p>
+                        <a href="#" class="btn btn-success btn-sm">View</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100" style="background-color: rgba(196, 224, 199, 0.8);">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Camping Tent</h3>
+                        <p class="card-text">Weekend use available</p>
+                        <a href="#" class="btn btn-success btn-sm">View</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+</main>
+
+<aside class="bg-light p-3 text-center">
+    <h2 class="h5">Why Find & Borrow?</h2>
+    <p class="mb-1">Save money • Help the environment • Build community</p>
+</aside>
+
+<footer class="bg-dark text-white text-center p-2">
+    <p class="mb-0">© 2025 Find & Borrow</p>
+</footer>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+</script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="JS/app.js"></script>
+</body>
+</html>
