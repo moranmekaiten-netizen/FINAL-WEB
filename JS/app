@@ -53,12 +53,13 @@ function wireNotImplemented() {
 
 function openItem(id) {
   localStorage.setItem(KEY_VIEW, id);
-  window.location.href = "item.html";
+  window.location.href = "../Includes/item.html";
 }
 
 function renderResults(list) {
   const $grid = $("#resultsGrid");
   if (!$grid.length) return;
+
 
   $grid.empty();
 
@@ -216,15 +217,141 @@ function wireItem() {
   });
 
  
-  $("#requestBtn").off("click").on("click", function () {
-    const msg = prompt("Write a short message to the owner (optional):", "Hi! Can I borrow this item?");
-    if (msg === null) return;
-    $("#requestPreview")
-      .removeClass("d-none")
-      .addClass("alert alert-success")
-      .text(`Message to ${it.owner}: ${msg || "(no message)"}`);
+ $("#requestBtn").off("click").on("click", function () {
+  let requests = JSON.parse(localStorage.getItem("fb_requests") || "[]");
+  const alreadyExists = requests.some(r => r.itemId === it.id);
+  if (alreadyExists) {
+  alert("You already sent a request for this item.");
+  return;
+}
+  const msg = prompt("Write a message:", "Hi! Can I borrow this item?");
+  if (msg === null) return;
+
+  const startDate = prompt("Enter start date (YYYY-MM-DD):", new Date().toISOString().split("T")[0]);
+  const endDate = prompt("Enter end date (YYYY-MM-DD):", new Date().toISOString().split("T")[0]);
+
+
+
+  requests.push({
+  id: Date.now(),
+  itemId: it.id,
+  name: it.name,
+  owner: it.owner,
+  message: msg,
+  startDate: startDate,
+  endDate: endDate,
+  status: "Pending"
+});
+
+  localStorage.setItem("fb_requests", JSON.stringify(requests));
+
+  window.location.href = "../Includes/my-requests.html";
+});
+}
+
+function renderRequests() {
+  const requests = JSON.parse(localStorage.getItem("fb_requests") || "[]");
+  const container = document.getElementById("requestsList");
+
+  container.innerHTML = "";
+
+  if (!requests.length) {
+    container.innerHTML = `<div class="alert alert-info">No requests yet.</div>`;
+    return;
+  }
+
+  requests.forEach(req => {
+    container.innerHTML += `
+  <div class="card mb-3 p-3">
+    <h5>${req.name}</h5>
+    <p>Owner: ${req.owner}</p>
+    <span class="badge bg-secondary">${req.status}</span>
+
+    <div class="mt-2">
+      <button class="btn btn-sm btn-success view-btn" data-id="${req.id}">
+        View Request
+      </button>
+    </div>
+  </div>
+`;
+  });
+document.querySelectorAll(".view-btn").forEach(btn => {
+  btn.addEventListener("click", function () {
+    localStorage.setItem("selectedRequest", this.dataset.id);
+    window.location.href = "request.html";
+  });
+});
+
+  document.querySelectorAll(".request-card").forEach(card => {
+    card.addEventListener("click", function () {
+      localStorage.setItem("selectedRequest", this.dataset.id);
+      window.location.href = "request.html";
+    });
   });
 }
+renderRequests();
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const id = localStorage.getItem("selectedRequest");
+  let requests = JSON.parse(localStorage.getItem("fb_requests") || "[]");
+  const req = requests.find(r => r.id == id);
+
+  if (req) {
+    document.getElementById("itemName").innerText = req.name;
+    document.getElementById("message").innerText = req.message;
+    document.getElementById("startDate").value = req.startDate || "";
+    document.getElementById("endDate").value = req.endDate || "";
+
+    const statusEl = document.getElementById("status");
+    statusEl.innerText = req.status;
+
+    if (req.status === "Pending") {
+      statusEl.classList.add("text-warning");
+    }
+  }
+
+  document.getElementById("cancelBtn").addEventListener("click", function () {
+    const updated = requests.filter(r => r.id != id);
+    localStorage.setItem("fb_requests", JSON.stringify(updated));
+    alert("Request canceled");
+    window.location.href = "my-requests.html";
+  });
+
+  document.getElementById("saveBtn").addEventListener("click", function () {
+
+    const newStart = document.getElementById("startDate").value;
+    const newEnd = document.getElementById("endDate").value;
+
+    if (!newStart || !newEnd) {
+      alert("All fields are required");
+      return;
+    }
+
+    if (newStart > newEnd) {
+      alert("End date must be after start date");
+      return;
+    }
+
+    let requests = JSON.parse(localStorage.getItem("fb_requests") || "[]");
+
+    requests = requests.map(r => {
+      if (r.id == id) {
+        return {
+          ...r,
+          startDate: newStart,
+          endDate: newEnd
+        };
+      }
+      return r;
+    });
+
+    localStorage.setItem("fb_requests", JSON.stringify(requests));
+
+    alert("Request updated successfully");
+  });
+
+});
 
 $(function () {
   seedIfMissing();
